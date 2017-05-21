@@ -1,5 +1,5 @@
 # TODO list
-
+[![Build Status](https://travis-ci.org/nathiss/todo-list.svg?branch=master)](https://travis-ci.org/nathiss/todo-list)  
 Simple TODO manager written in Python3.
 
 ## Requirements
