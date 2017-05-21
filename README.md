@@ -4,7 +4,7 @@ Simple TODO manager written in Python3.
 
 ## Requirements
 - Unix[-like] system
-- Python 3
+- Python >= 3.3
 
 ## Installation
 1. Create `.todo-list.json` in the project's root.
