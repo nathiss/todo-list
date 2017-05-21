@@ -8,6 +8,7 @@ import json
 import sys
 import os
 
+
 class todo(object):
     def __init__(self, fname):
         self._file_name = fname
@@ -17,13 +18,11 @@ class todo(object):
         self.green = '\033[32m'
         self.cclear = '\033[0m'
 
-
     def _prepair_file(self, path):
         structure = '{"todo-list":[]}'
         with open(path, 'w') as f:
             f.write(structure)
         return structure
-
 
     def _read_data(self, fname):
         while not os.path.isfile(fname):
@@ -38,13 +37,10 @@ class todo(object):
             return data
         return self._prepair_file(self._data_file)
 
-
-
     def _parse_data(self, data):
         if data:
             return json.loads(data)
         return ''
-
 
     def cprint(self, txt, color):
         if color == 'red':
@@ -54,18 +50,16 @@ class todo(object):
         else:
             print(txt)
 
-
     def _show_data(self, data):
             if not (data and len(data['todo-list'])):
                 print('Nothing to show.')
             else:
                 for idx, task in enumerate(data['todo-list']):
-                    if task['is_done'] == True:
-                        self.cprint('%s.\t[x] %s' % (idx, task['text']),
-                                'green')
+                    if task['is_done']:
+                        self.cprint(
+                                '%s.\t[x] %s' % (idx, task['text']), 'green')
                     else:
                         self.cprint('%s.\t[ ] %s' % (idx, task['text']), 'red')
-
 
     def _add_task(self, task):
         tmp = {
@@ -75,7 +69,6 @@ class todo(object):
         self._parsed_data['todo-list'].append(tmp)
         self._changed = True
 
-
     def _delete_task(self, idx):
         if len(self._parsed_data['todo-list']) <= idx:
             print('Out of range.')
@@ -84,14 +77,12 @@ class todo(object):
             self._parsed_data['todo-list'] = data[:idx] + data[idx+1:]
         self._changed = True
 
-
     def _done_task(self, idx):
         if len(self._parsed_data['todo-list']) <= idx:
             print('Out of range')
         else:
             self._parsed_data['todo-list'][idx]['is_done'] = True
         self._changed = True
-
 
     def _undone_task(self, idx):
         if len(self._parsed_data['todo-list']) <= idx:
@@ -100,12 +91,10 @@ class todo(object):
             self._parsed_data['todo-list'][idx]['is_done'] = False
         self._changed = True
 
-
     def _save_changes(self, data, fname):
         dump = json.dumps(data)
         with open(fname, 'w') as f:
             f.write(dump)
-
 
     def _print_usage(self):
         print('Usage: python todo.py [COMMAND] [DATA]\n',
@@ -115,7 +104,6 @@ class todo(object):
               '\t\tdone - mark task at index DATA as done\n',
               '\t\tundone - mark task at index DATA as undone\n',
               '\tIf none was given tasks will be listed.')
-
 
     def run(self):
         self._raw_data = self._read_data(self._file_name)
@@ -138,7 +126,6 @@ class todo(object):
 
         if self._changed:
             self._save_changes(self._parsed_data, self._data_file)
-
 
 
 def main():
