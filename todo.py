@@ -26,10 +26,10 @@ class todo(object):
 
     def _read_data(self, fname):
         while not os.path.isfile(fname):
-            os.chdir('..')
             if os.getcwd() == '/':
                 raise FileNotFoundError(
                         'File %s does not exist in path' % fname)
+            os.chdir('..')
         self._data_file = os.path.join(os.getcwd(), fname)
         with open(os.path.join(os.getcwd(), fname))as f:
             data = f.read()
