@@ -6,4 +6,4 @@ python:
     - "3.6"
 notifications:
     email: false
-script: "python tests/todotest.py"
+script: "python tests/testtodo.py"
