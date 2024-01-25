@@ -25,13 +25,19 @@ class todo(object):
         return structure
 
     def _read_data(self, fname):
-        while not os.path.isfile(fname):
-            if os.getcwd() == '/':
-                raise FileNotFoundError(
-                        'File %s does not exist in path' % fname)
-            os.chdir('..')
-        self._data_file = os.path.join(os.getcwd(), fname)
-        with open(os.path.join(os.getcwd(), fname))as f:
+        # Check for data file in home directory first
+        file_name = (f"~/.config/todo/{fname}")
+        if (file_name):
+            self._data_file = os.path.expanduser(file_name)
+        # if not in home directory, try parent directories
+        else:
+            while not os.path.isfile(fname):
+                if os.getcwd() == '/':
+                    raise FileNotFoundError(
+                            'File %s does not exist in path' % fname)
+                os.chdir('..')
+            self._data_file = os.path.join(os.getcwd(), fname)
+        with open(self._data_file) as f:
             data = f.read()
         if len(data):
             return data

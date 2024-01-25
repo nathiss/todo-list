@@ -7,8 +7,8 @@ Simple TODO manager written in Python3.
 - Python >= 3.3
 
 ## Installation
-1. Create `.todo-list.json` in the project's root.
-2. Move `todo.py` to your `$PATH` or use symlink.
+1. Create `.todo-list.json` file. It initially checks your home directory `~/.config/todo/`, then in the project's root, then in parent directories.  
+2. Move `todo.py` to your `$PATH` or use symlink.  
 
 ## Usage
 * To list tasks just type:
